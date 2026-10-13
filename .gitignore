@@ -1,0 +1,28 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Local virtual environments
+virtual_environment/
+.venv/
+venv/
+
+# Local database / generated data
+chroma_db/
+checkpoints.sqlite
+logs/
+*.sqlite3
+
+# Local testing / scratch artifacts
+chroma_inspect/
+chroma_test_cleanup/
+
+
+# OS/editor noise
+.DS_Store
+Thumbs.db

@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#152b27">
+  <title>Cred Support | API Console</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #17231f;
+      --muted: #65716c;
+      --line: #dce3df;
+      --paper: #f5f7f4;
+      --panel: #ffffff;
+      --forest: #1c3931;
+      --mint: #c8f16a;
+      --coral: #c45440;
+      --mono: "Cascadia Code", Consolas, monospace;
+      --sans: "Bahnschrift", "Segoe UI Variable", "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background-color: var(--paper);
+      background-image: linear-gradient(#e9eeeb 1px, transparent 1px), linear-gradient(90deg, #e9eeeb 1px, transparent 1px);
+      background-size: 32px 32px;
+      font-family: var(--sans);
+      font-size: 15px;
+    }
+    button, input, textarea { font: inherit; }
+    .topbar {
+      min-height: 62px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 0 5vw;
+      color: white;
+      background: var(--forest);
+    }
+    .brand { display: flex; align-items: center; gap: 11px; font-weight: 700; }
+    .brand-mark {
+      display: grid;
+      width: 29px;
+      aspect-ratio: 1;
+      place-items: center;
+      color: var(--forest);
+      background: var(--mint);
+      font-size: 17px;
+      font-weight: 800;
+    }
+    .brand small { color: #c0cec8; font-weight: 500; }
+    .top-links { display: flex; align-items: center; gap: 20px; font-size: 13px; }
+    .top-links a { color: #fff; text-decoration: none; }
+    .top-links a:hover { color: var(--mint); }
+    .local-indicator { display: inline-flex; align-items: center; gap: 7px; color: #d0ded8; }
+    .local-indicator::before { content: ""; width: 7px; aspect-ratio: 1; border-radius: 50%; background: var(--mint); }
+
+    main { width: min(1120px, 90vw); margin: 0 auto; padding: 55px 0 64px; }
+    .intro { display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 24px; margin-bottom: 30px; }
+    .eyebrow { margin: 0 0 10px; color: var(--coral); font: 700 11px var(--mono); text-transform: uppercase; }
+    h1 { max-width: 700px; margin: 0; font-size: clamp(30px, 4vw, 48px); line-height: 1.04; font-weight: 700; }
+    .intro-copy { max-width: 580px; margin: 13px 0 0; color: var(--muted); line-height: 1.55; }
+    .version { border: 1px solid var(--line); padding: 9px 12px; background: #fff; color: var(--muted); font: 12px var(--mono); white-space: nowrap; }
+    .workspace { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(310px, .85fr); gap: 18px; align-items: start; }
+    .tool { border: 1px solid var(--line); background: var(--panel); }
+    .tool-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; padding: 19px 21px; border-bottom: 1px solid var(--line); }
+    .tool-head h2 { margin: 0; font-size: 19px; }
+    .tool-head p { margin: 5px 0 0; color: var(--muted); font-size: 13px; }
+    .method { color: #38564b; background: #e8f3e5; padding: 5px 7px; font: 700 10px var(--mono); }
+    form { padding: 21px; }
+    label { display: block; margin: 0 0 7px; font-size: 12px; font-weight: 700; }
+    .field { margin-bottom: 17px; }
+    input, textarea {
+      display: block;
+      width: 100%;
+      border: 1px solid #cbd5d0;
+      border-radius: 3px;
+      padding: 11px 12px;
+      color: var(--ink);
+      background: #fff;
+      outline: none;
+    }
+    input:focus, textarea:focus { border-color: #527c68; box-shadow: 0 0 0 3px #dfece3; }
+    textarea { min-height: 140px; resize: vertical; line-height: 1.5; }
+    .hint { margin: 6px 0 0; color: var(--muted); font-size: 11px; }
+    .actions { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .submit {
+      min-height: 41px;
+      border: 0;
+      border-radius: 3px;
+      padding: 0 16px;
+      color: #14251e;
+      background: var(--mint);
+      font-weight: 750;
+      cursor: pointer;
+      transition: background 120ms ease, transform 120ms ease;
+    }
+    .submit:hover { background: #b6e451; transform: translateY(-1px); }
+    .submit:disabled { opacity: .6; cursor: wait; transform: none; }
+    .result { margin: 0 21px 21px; border-top: 1px solid var(--line); padding-top: 14px; }
+    .result-head { display: flex; justify-content: space-between; gap: 10px; margin-bottom: 8px; color: var(--muted); font: 11px var(--mono); text-transform: uppercase; }
+    .result pre { max-height: 280px; overflow: auto; margin: 0; padding: 13px; color: #e4eee8; background: #192721; font: 12px/1.55 var(--mono); white-space: pre-wrap; overflow-wrap: anywhere; }
+    .result pre[data-state="error"] { color: #ffe2dc; background: #49291f; }
+    .endpoint-strip { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 19px; }
+    .endpoint-strip span { border: 1px solid var(--line); padding: 7px 9px; color: #4d5a54; background: #fff; font: 11px var(--mono); }
+    footer { display: flex; justify-content: space-between; gap: 15px; margin-top: 30px; padding-top: 15px; border-top: 1px solid #d5ded9; color: var(--muted); font-size: 12px; }
+    footer a { color: var(--forest); font-weight: 700; }
+    @media (max-width: 760px) {
+      .topbar { padding: 0 5vw; }
+      .top-links { gap: 12px; }
+      .local-indicator { display: none; }
+      main { padding-top: 36px; }
+      .intro { grid-template-columns: 1fr; align-items: start; }
+      .version { justify-self: start; }
+      .workspace { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 430px) {
+      .brand small { display: none; }
+      .top-links { font-size: 12px; }
+      .tool-head, form { padding-left: 16px; padding-right: 16px; }
+      .result { margin-left: 16px; margin-right: 16px; }
+      footer { flex-direction: column; }
+    }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: .01ms !important; } }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark">C</span><span>Cred Support <small>/ API console</small></span></div>
+    <nav class="top-links" aria-label="API navigation">
+      <span class="local-indicator">Local API</span>
+      <a href="/docs">Swagger docs</a>
+      <a href="/openapi.json">OpenAPI</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="intro" aria-labelledby="page-title">
+      <div>
+        <p class="eyebrow">Banking operations · API workspace</p>
+        <h1 id="page-title">Support, in one place.</h1>
+        <p class="intro-copy">Ask about lending policies or application status, and add knowledge-base documents without leaving the console.</p>
+      </div>
+      <span class="version">AGENT API · v1</span>
+    </section>
+
+    <section class="workspace" aria-label="API tools">
+      <article class="tool">
+        <div class="tool-head">
+          <div><h2>Ask the agent</h2><p>Policy questions and application lookups</p></div>
+          <span class="method">POST /ask</span>
+        </div>
+        <form id="ask-form">
+          <div class="field">
+            <label for="query">Query</label>
+            <textarea id="query" name="query" maxlength="4000" required placeholder="What documents are required for KYC?">What documents are required for KYC?</textarea>
+          </div>
+          <div class="field">
+            <label for="conversation-id">Conversation ID <span style="font-weight:400;color:#65716c">(optional)</span></label>
+            <input id="conversation-id" name="conversation_id" maxlength="128" placeholder="Reuse an ID to continue a conversation">
+            <p class="hint">Leave blank to start a new conversation.</p>
+          </div>
+          <div class="actions"><span class="hint">Responses are schema-validated.</span><button class="submit" type="submit">Send query</button></div>
+        </form>
+        <div class="result" aria-live="polite">
+          <div class="result-head"><span>Response</span><span id="ask-status">Ready</span></div>
+          <pre id="ask-result">Submit a query to see the structured response.</pre>
+        </div>
+      </article>
+
+      <article class="tool">
+        <div class="tool-head">
+          <div><h2>Add knowledge</h2><p>Embed and index a source document</p></div>
+          <span class="method">POST /add-document</span>
+        </div>
+        <form id="document-form">
+          <div class="field">
+            <label for="doc-id">Document ID</label>
+            <input id="doc-id" name="doc_id" required minlength="3" maxlength="64" pattern="[A-Za-z0-9_-]{3,64}" placeholder="policy_017">
+            <p class="hint">3–64 letters, numbers, underscores, or hyphens.</p>
+          </div>
+          <div class="field">
+            <label for="title">Title</label>
+            <input id="title" name="title" required maxlength="200" placeholder="Account servicing policy">
+          </div>
+          <div class="field">
+            <label for="document-text">Document text</label>
+            <textarea id="document-text" name="text" required maxlength="50000" placeholder="Paste the document text here..."></textarea>
+          </div>
+          <div class="actions"><span class="hint">Indexed in both chunk strategies.</span><button class="submit" type="submit">Add document</button></div>
+        </form>
+        <div class="result" aria-live="polite">
+          <div class="result-head"><span>Index result</span><span id="document-status">Ready</span></div>
+          <pre id="document-result">Submit a document to see the indexing result.</pre>
+        </div>
+      </article>
+    </section>
+
+    <div class="endpoint-strip" aria-label="Available endpoints">
+      <span>POST /ask</span><span>POST /add-document</span><span>GET /docs</span>
+    </div>
+    <footer><span>Cred Banking Support Agent · Local development</span><span>API reference: <a href="/docs">open Swagger UI</a></span></footer>
+  </main>
+
+  <script>
+    async function submitJson(form, endpoint, output, status) {
+      const button = form.querySelector("button[type=submit]");
+      button.disabled = true;
+      status.textContent = "Sending";
+      output.dataset.state = "";
+      try {
+        const body = Object.fromEntries(new FormData(form).entries());
+        if (endpoint === "/ask" && !body.conversation_id) delete body.conversation_id;
+        const response = await fetch(endpoint, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body)
+        });
+        const data = await response.json();
+        output.textContent = JSON.stringify(data, null, 2);
+        output.dataset.state = response.ok ? "success" : "error";
+        status.textContent = response.ok ? `${response.status} · OK` : `${response.status} · Error`;
+      } catch (error) {
+        output.textContent = JSON.stringify({ error: error.message }, null, 2);
+        output.dataset.state = "error";
+        status.textContent = "Request failed";
+      } finally {
+        button.disabled = false;
+      }
+    }
+
+    document.querySelector("#ask-form").addEventListener("submit", event => {
+      event.preventDefault();
+      submitJson(event.currentTarget, "/ask", document.querySelector("#ask-result"), document.querySelector("#ask-status"));
+    });
+    document.querySelector("#document-form").addEventListener("submit", event => {
+      event.preventDefault();
+      submitJson(event.currentTarget, "/add-document", document.querySelector("#document-result"), document.querySelector("#document-status"));
+    });
+  </script>
+</body>
+</html>

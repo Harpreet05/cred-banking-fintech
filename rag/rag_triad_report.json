@@ -1,0 +1,324 @@
+{
+  "judge_mode": "MOCK_LLM",
+  "score_scale": "1-5",
+  "score_method": "Deterministic prompt-based MOCK_LLM using meaningful-token coverage; no external API or network calls.",
+  "query_count": 15,
+  "required_topics": [
+    "EMI calculation rules",
+    "KYC document requirements",
+    "NRI-account eligibility",
+    "account-closure process",
+    "credit-card fee structure",
+    "credit-score impact factors",
+    "fraud-dispute resolution process",
+    "interest-rate slabs",
+    "joint-account rules",
+    "loan eligibility criteria by loan type",
+    "minimum-balance requirements",
+    "prepayment-penalty rules"
+  ],
+  "covered_required_topics": [
+    "EMI calculation rules",
+    "KYC document requirements",
+    "NRI-account eligibility",
+    "account-closure process",
+    "credit-card fee structure",
+    "credit-score impact factors",
+    "fraud-dispute resolution process",
+    "interest-rate slabs",
+    "joint-account rules",
+    "loan eligibility criteria by loan type",
+    "minimum-balance requirements",
+    "prepayment-penalty rules"
+  ],
+  "judge_prompt": "You are a strict RAG-triad evaluator. Score each dimension from 1 (poor) to 5 (excellent).\nContext relevance: does the supplied context address the query?\nGroundedness: are the answer's factual claims supported by the supplied context? A clear refusal is grounded for an explicitly unanswerable query.\nAnswer relevance: does the answer address the query? A clear refusal is relevant for an explicitly unanswerable query.\nReturn context_relevance, groundedness, and answer_relevance as numeric scores, with a short rationale for each.\n\nEvaluation input (JSON):\n",
+  "averages": {
+    "context_relevance": 2.82,
+    "groundedness": 4.913,
+    "answer_relevance": 3.54
+  },
+  "results": [
+    {
+      "query": "What eligibility criteria apply to personal, home, auto, education, and business loans?",
+      "topics": [
+        "loan eligibility criteria by loan type"
+      ],
+      "expected_answerable": true,
+      "fallback": false,
+      "top_1_similarity": 0.7288,
+      "scores": {
+        "context_relevance": 2.0,
+        "groundedness": 5.0,
+        "answer_relevance": 2.0
+      },
+      "rationales": {
+        "context_relevance": "Matched 2 of 8 meaningful terms.",
+        "groundedness": "Matched 37 of 37 meaningful terms.",
+        "answer_relevance": "Matched 2 of 8 meaningful terms."
+      }
+    },
+    {
+      "query": "How is an EMI calculated from the principal, interest rate, and loan tenure?",
+      "topics": [
+        "EMI calculation rules"
+      ],
+      "expected_answerable": true,
+      "fallback": false,
+      "top_1_similarity": 0.7926,
+      "scores": {
+        "context_relevance": 5.0,
+        "groundedness": 4.78,
+        "answer_relevance": 5.0
+      },
+      "rationales": {
+        "context_relevance": "Matched 7 of 7 meaningful terms.",
+        "groundedness": "Matched 34 of 36 meaningful terms.",
+        "answer_relevance": "Matched 7 of 7 meaningful terms."
+      }
+    },
+    {
+      "query": "What fees and charges can apply to a credit card?",
+      "topics": [
+        "credit-card fee structure"
+      ],
+      "expected_answerable": true,
+      "fallback": false,
+      "top_1_similarity": 0.7842,
+      "scores": {
+        "context_relevance": 5.0,
+        "groundedness": 4.9,
+        "answer_relevance": 5.0
+      },
+      "rationales": {
+        "context_relevance": "Matched 4 of 4 meaningful terms.",
+        "groundedness": "Matched 39 of 40 meaningful terms.",
+        "answer_relevance": "Matched 4 of 4 meaningful terms."
+      }
+    },
+    {
+      "query": "Which documents are accepted for completing KYC?",
+      "topics": [
+        "KYC document requirements"
+      ],
+      "expected_answerable": true,
+      "fallback": false,
+      "top_1_similarity": 0.6413,
+      "scores": {
+        "context_relevance": 3.0,
+        "groundedness": 4.8,
+        "answer_relevance": 3.0
+      },
+      "rationales": {
+        "context_relevance": "Matched 2 of 4 meaningful terms.",
+        "groundedness": "Matched 38 of 40 meaningful terms.",
+        "answer_relevance": "Matched 2 of 4 meaningful terms."
+      }
+    },
+    {
+      "query": "How should a customer dispute a suspected fraudulent transaction?",
+      "topics": [
+        "fraud-dispute resolution process"
+      ],
+      "expected_answerable": true,
+      "fallback": false,
+      "top_1_similarity": 0.6273,
+      "scores": {
+        "context_relevance": 2.33,
+        "groundedness": 4.81,
+        "answer_relevance": 3.0
+      },
+      "rationales": {
+        "context_relevance": "Matched 2 of 6 meaningful terms.",
+        "groundedness": "Matched 41 of 43 meaningful terms.",
+        "answer_relevance": "Matched 3 of 6 meaningful terms."
+      }
+    },
+    {
+      "query": "What steps are required to close an account?",
+      "topics": [
+        "account-closure process"
+      ],
+      "expected_answerable": true,
+      "fallback": false,
+      "top_1_similarity": 0.6797,
+      "scores": {
+        "context_relevance": 2.0,
+        "groundedness": 4.91,
+        "answer_relevance": 2.0
+      },
+      "rationales": {
+        "context_relevance": "Matched 1 of 4 meaningful terms.",
+        "groundedness": "Matched 46 of 47 meaningful terms.",
+        "answer_relevance": "Matched 1 of 4 meaningful terms."
+      }
+    },
+    {
+      "query": "How are the interest-rate slabs for a loan determined?",
+      "topics": [
+        "interest-rate slabs"
+      ],
+      "expected_answerable": true,
+      "fallback": false,
+      "top_1_similarity": 0.6525,
+      "scores": {
+        "context_relevance": 3.4,
+        "groundedness": 5.0,
+        "answer_relevance": 3.4
+      },
+      "rationales": {
+        "context_relevance": "Matched 3 of 5 meaningful terms.",
+        "groundedness": "Matched 39 of 39 meaningful terms.",
+        "answer_relevance": "Matched 3 of 5 meaningful terms."
+      }
+    },
+    {
+      "query": "Can a borrower repay a loan early, and when does a prepayment penalty apply?",
+      "topics": [
+        "prepayment-penalty rules"
+      ],
+      "expected_answerable": true,
+      "fallback": false,
+      "top_1_similarity": 0.8266,
+      "scores": {
+        "context_relevance": 3.86,
+        "groundedness": 5.0,
+        "answer_relevance": 3.86
+      },
+      "rationales": {
+        "context_relevance": "Matched 5 of 7 meaningful terms.",
+        "groundedness": "Matched 44 of 44 meaningful terms.",
+        "answer_relevance": "Matched 5 of 7 meaningful terms."
+      }
+    },
+    {
+      "query": "What minimum balance must be maintained, and what happens if it is not?",
+      "topics": [
+        "minimum-balance requirements"
+      ],
+      "expected_answerable": true,
+      "fallback": false,
+      "top_1_similarity": 0.5828,
+      "scores": {
+        "context_relevance": 2.33,
+        "groundedness": 4.91,
+        "answer_relevance": 2.33
+      },
+      "rationales": {
+        "context_relevance": "Matched 2 of 6 meaningful terms.",
+        "groundedness": "Matched 46 of 47 meaningful terms.",
+        "answer_relevance": "Matched 2 of 6 meaningful terms."
+      }
+    },
+    {
+      "query": "Which factors can improve or reduce a borrower's credit score?",
+      "topics": [
+        "credit-score impact factors"
+      ],
+      "expected_answerable": true,
+      "fallback": false,
+      "top_1_similarity": 0.7635,
+      "scores": {
+        "context_relevance": 3.67,
+        "groundedness": 4.79,
+        "answer_relevance": 4.33
+      },
+      "rationales": {
+        "context_relevance": "Matched 4 of 6 meaningful terms.",
+        "groundedness": "Matched 37 of 39 meaningful terms.",
+        "answer_relevance": "Matched 5 of 6 meaningful terms."
+      }
+    },
+    {
+      "query": "What rules apply when opening or operating a joint account?",
+      "topics": [
+        "joint-account rules"
+      ],
+      "expected_answerable": true,
+      "fallback": false,
+      "top_1_similarity": 0.7052,
+      "scores": {
+        "context_relevance": 2.33,
+        "groundedness": 4.89,
+        "answer_relevance": 3.0
+      },
+      "rationales": {
+        "context_relevance": "Matched 2 of 6 meaningful terms.",
+        "groundedness": "Matched 37 of 38 meaningful terms.",
+        "answer_relevance": "Matched 3 of 6 meaningful terms."
+      }
+    },
+    {
+      "query": "Can an NRI open an account, and what eligibility conditions apply?",
+      "topics": [
+        "NRI-account eligibility"
+      ],
+      "expected_answerable": true,
+      "fallback": false,
+      "top_1_similarity": 0.735,
+      "scores": {
+        "context_relevance": 2.6,
+        "groundedness": 4.9,
+        "answer_relevance": 3.4
+      },
+      "rationales": {
+        "context_relevance": "Matched 2 of 5 meaningful terms.",
+        "groundedness": "Matched 41 of 42 meaningful terms.",
+        "answer_relevance": "Matched 3 of 5 meaningful terms."
+      }
+    },
+    {
+      "query": "If a borrower closes a loan early, how are the closure steps and prepayment charges handled?",
+      "topics": [
+        "account-closure process",
+        "prepayment-penalty rules"
+      ],
+      "expected_answerable": true,
+      "fallback": false,
+      "top_1_similarity": 0.83,
+      "scores": {
+        "context_relevance": 2.78,
+        "groundedness": 5.0,
+        "answer_relevance": 2.78
+      },
+      "rationales": {
+        "context_relevance": "Matched 4 of 9 meaningful terms.",
+        "groundedness": "Matched 44 of 44 meaningful terms.",
+        "answer_relevance": "Matched 4 of 9 meaningful terms."
+      }
+    },
+    {
+      "query": "How do I bake a chocolate cake without an oven?",
+      "topics": [],
+      "expected_answerable": false,
+      "fallback": true,
+      "top_1_similarity": 0.1157,
+      "scores": {
+        "context_relevance": 1.0,
+        "groundedness": 5.0,
+        "answer_relevance": 5.0
+      },
+      "rationales": {
+        "context_relevance": "Matched 0 of 4 meaningful terms.",
+        "groundedness": "The unsupported query received a clear refusal.",
+        "answer_relevance": "The refusal is appropriate for an out-of-scope query."
+      }
+    },
+    {
+      "query": "What will the weather be in Mumbai next week?",
+      "topics": [],
+      "expected_answerable": false,
+      "fallback": true,
+      "top_1_similarity": 0.1421,
+      "scores": {
+        "context_relevance": 1.0,
+        "groundedness": 5.0,
+        "answer_relevance": 5.0
+      },
+      "rationales": {
+        "context_relevance": "Matched 0 of 4 meaningful terms.",
+        "groundedness": "The unsupported query received a clear refusal.",
+        "answer_relevance": "The refusal is appropriate for an out-of-scope query."
+      }
+    }
+  ]
+}
