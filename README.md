@@ -107,10 +107,10 @@ flowchart TD
         adddoc --> chunks
         middleware --> log["logs/requests.jsonl"]
         memory_load --> deadline["30s global graph deadline"]
-        deadline --> graph["LangGraph invocation"]
-        graph -. "thread_id checkpoint" .-> sqlite["checkpoints.sqlite"]
+        deadline --> agent_graph["LangGraph invocation"]
+        agent_graph -. "thread_id checkpoint" .-> sqlite["checkpoints.sqlite"]
 
-        graph --> guard["Mask PII and detect injection"]
+        agent_graph --> guard["Mask PII and detect injection"]
         guard -->|"Injection"| blocked["Blocked response"]
         guard -->|"Allowed"| intent["Classify intent"]
         intent -->|"Status"| status["Loan status node\nRetry + node timeout"]
